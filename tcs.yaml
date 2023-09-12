@@ -11,4 +11,4 @@ spec:
       image: registry.access.redhat.com/ubi9-minimal:latest
       workingDir: /workspace/source
       script: |
-        bash -x -c "echo 'FROM scratch' >Containerfile; ls -l ${PWD}/Containerfile"
+        bash -x -c "echo 'FROM scratch' >Dockerfile; ls -l ${PWD}/Containerfile"
