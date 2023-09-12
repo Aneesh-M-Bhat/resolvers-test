@@ -1,0 +1,56 @@
+---
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  labels:
+    name: task-buildah
+  name: task-buildah
+spec:
+  params:
+    - name: IMAGE
+      type: string
+    - name: TLS_VERIFY
+      type: string
+    - name: VERBOSE
+      type: string
+
+  workspaces:
+    - name: source
+
+  tasks:
+    - name: containerfile-stub
+      taskRef:
+        resolver: git
+        params:
+          - name: url
+            value: https://github.com/Aneesh-M-Bhat/resolvers-test.git
+          - name: revision
+            value: main
+          - name: pathInRepo
+            value: tcs.yaml
+      workspaces:
+        - name: source
+          workspace: source
+
+    - name: buildah
+      taskRef:
+        resolver: git
+        params:
+          - name: url
+            value: https://github.com/Aneesh-M-Bhat/resolvers-test.git
+          - name: revision
+            value: main
+          - name: pathInRepo
+            value: buildah.yaml
+      runAfter:
+        - containerfile-stub
+      workspaces:
+        - name: source
+          workspace: source
+      params:
+        - name: IMAGE
+          value: $(params.IMAGE)
+        - name: TLS_VERIFY
+          value: $(params.TLS_VERIFY)
+        - name: VERBOSE
+          value: $(params.VERBOSE)

@@ -1,0 +1,14 @@
+---
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: containerfile-stub
+spec:
+  workspaces:
+    - name: source
+  steps:
+    - name: containerfile-stub
+      image: registry.access.redhat.com/ubi9-minimal:latest
+      workingDir: /workspace/source
+      script: |
+        bash -x -c "echo 'FROM scratch' >Containerfile; ls -l ${PWD}/Containerfile"
