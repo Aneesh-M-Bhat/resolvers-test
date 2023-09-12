@@ -1,0 +1,18 @@
+apiVersion: tekton.dev/v1beta1
+kind: TaskRun
+metadata:
+  name: echo-hello-world-run
+spec:
+  serviceAccountName: default
+  taskRef:
+    resolver: git
+    params:
+      - name: url
+        value: https://github.com/Aneesh-M-Bhat/resolvers-test.git
+      - name: revision
+        value: main
+      - name: pathInRepo
+        value: buildah.yaml
+  params:
+    - name: IMAGE
+      value: registry.registry.svc.cluster.local:32222/task-containers/task-buildah:latest
