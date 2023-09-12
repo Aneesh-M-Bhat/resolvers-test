@@ -66,7 +66,7 @@ spec:
       description: Image repository where the built image would be pushed to
   steps:
     - name: build
-      image: quay.io/buildah/stable:v1.29.0
+      image: registry.access.redhat.com/ubi8/buildah:latest
       workingDir: $(workspaces.source.path)
       script: |
         [[ "$(workspaces.sslcertdir.bound)" == "true" ]] && CERT_DIR_FLAG="--cert-dir $(workspaces.sslcertdir.path)"
