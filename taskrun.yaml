@@ -1,8 +1,14 @@
 apiVersion: tekton.dev/v1beta1
 kind: TaskRun
 metadata:
-  name: buildah-test
+  name: test-buildah
 spec:
+  serviceAccountName: default
+  workspaces:
+    - name: source
+      persistentVolumeClaim:
+        claimName: task-buildah
+      subPath: source
   taskRef:
     resolver: git
     params:
@@ -14,8 +20,8 @@ spec:
         value: buildah.yaml
   params:
     - name: IMAGE
-      value: $(params.IMAGE)
+      value: "hub.docker.com/repository/docker/aneeshmbhat3719/test-buildah:latest"
     - name: TLS_VERIFY
-      value: $(params.TLS_VERIFY)
+      value: "false"
     - name: VERBOSE
-      value: $(params.VERBOSE)
+      value: "true"
