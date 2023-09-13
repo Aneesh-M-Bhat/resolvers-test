@@ -100,7 +100,7 @@ spec:
         buildah ${CERT_DIR_FLAG} --storage-driver=$(params.STORAGE_DRIVER) push \
           $(params.PUSH_EXTRA_ARGS) --tls-verify=$(params.TLSVERIFY) \
           --digestfile /tmp/image-digest $(params.IMAGE) \
-          https://$(params.IMAGE)
+          docker://$(params.IMAGE)
         cat /tmp/image-digest | tee $(results.IMAGE_DIGEST.path)
         echo -n "$(params.IMAGE)" | tee $(results.IMAGE_URL.path)
       volumeMounts:
