@@ -1,0 +1,21 @@
+apiVersion: tekton.dev/v1beta1
+kind: TaskRun
+metadata:
+  name: buildah-test
+spec:
+  taskRef:
+    resolver: git
+    params:
+      - name: url
+        value: https://github.com/Aneesh-M-Bhat/resolvers-test.git
+      - name: revision
+        value: main
+      - name: pathInRepo
+        value: buildah.yaml
+  params:
+    - name: IMAGE
+      value: $(params.IMAGE)
+    - name: TLS_VERIFY
+      value: $(params.TLS_VERIFY)
+    - name: VERBOSE
+      value: $(params.VERBOSE)
